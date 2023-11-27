@@ -7,28 +7,28 @@ using Zoo.BusinessLogic.Models.Animals;
 
 namespace Zoo.BusinessLogic.Services
 {
-  public class FeedingScheduler
+  public class Scheduler
   {
-    private static FeedingScheduler instance;
+    private static Scheduler instance;
 
-    public static FeedingScheduler Instance
+    public static Scheduler Instance
     {
       get
       {
         if (instance == null)
         {
-          instance = new FeedingScheduler();
+          instance = new Scheduler();
         }
 
         return instance;
       }
     }
 
-    private FeedingScheduler()
+    private Scheduler()
     {
     }
 
-    public void AssignFeedingJobs(IEnumerable<IKeeper> keepers, IEnumerable<IAnimal> animals)
+    public void AssignJobs(IEnumerable<IKeeper> keepers, IEnumerable<IAnimal> animals)
     {
       Parallel.ForEach(keepers, keeper =>
       {
@@ -38,6 +38,11 @@ namespace Zoo.BusinessLogic.Services
           {
             keeper.FeedAnimal(animal);
           }
+        }
+
+        foreach (var groomableAnimal in keeper.GetResponsibleAnimals<ICanBeGroomed>())
+        {
+            keeper.GroomAnimal(groomableAnimal);
         }
       });
     }
