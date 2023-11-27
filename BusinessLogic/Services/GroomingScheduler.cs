@@ -31,7 +31,7 @@ namespace Zoo.BusinessLogic.Services
     {
       foreach (var keeper in keepers)
       {
-        keeper.GetResponsibleAnimals<ICanBeGroomed>().AsParallel().ForAll(keeper.GroomAnimal);
+        keeper.GetResponsibleAnimals<AnimalThatCanBeGroomed>().AsParallel().ForAll(keeper.GroomAnimal);
       }
     }
   }
