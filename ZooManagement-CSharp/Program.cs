@@ -39,12 +39,14 @@ namespace Zoo.ConsoleApp
 
             var feedingScheduler = FeedingScheduler.Instance;
             var groomingScheduler = GroomingScheduler.Instance;
+            var muckSweepOutScheduler = MuckSweepOutScheduler.Instance;
 
             var timer = new ZooTimer();
             new Thread(timer.Run).Start();
 
             timer.Tick += () => feedingScheduler.AssignFeedingJobs(keepers, animals);
             timer.Tick += () => groomingScheduler.AssignGroomingJobs(keepers, animals);
+            timer.Tick += () => muckSweepOutScheduler.AssignGroomingJobs(keepers, animals);
             timer.Tick += () => animals.ForEach(Console.WriteLine);
         }
     }

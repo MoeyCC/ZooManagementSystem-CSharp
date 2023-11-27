@@ -33,6 +33,11 @@ namespace Zoo.BusinessLogic.Models
       animalToGroom.Groom();
     }
 
+    public void MuckSweepOutAnimal(ICanHaveMuckSweptOut animalToSweepOutMuck)
+    {
+      animalToSweepOutMuck.MuckSweepOut();
+    }
+
     public void StartLookingAfter(TAnimal newAnimal)
     {
       animals.Add(newAnimal);

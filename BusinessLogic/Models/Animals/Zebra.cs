@@ -2,9 +2,11 @@
 
 namespace Zoo.BusinessLogic.Models.Animals
 {
-  public class Zebra : Animal, ICanBeGroomed, ILargeAnimal
+  public class Zebra : Animal, ICanHaveMuckSweptOut, ICanBeGroomed, ILargeAnimal
   {
     private DateTime lastGroomed;
+
+    private DateTime lastMuckSweptOut;
 
     public Zebra(DateTime dateOfBirth) : base(dateOfBirth)
     {
@@ -15,9 +17,14 @@ namespace Zoo.BusinessLogic.Models.Animals
       lastGroomed = DateTime.Now;
     }
 
+    public void MuckSweepOut()
+    {
+      lastMuckSweptOut = DateTime.Now;
+    }
+
     public override string ToString()
     {
-      return base.ToString() + $"; Last Groomed {lastGroomed}";
+      return base.ToString() + $"; Last Groomed {lastGroomed}, Last Muck swept out {lastMuckSweptOut}";
     }
   }
 }
