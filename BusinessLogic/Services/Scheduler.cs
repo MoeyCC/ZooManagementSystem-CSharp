@@ -1,34 +1,41 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 using Zoo.BusinessLogic.Models;
 using Zoo.BusinessLogic.Models.Animals;
 
 namespace Zoo.BusinessLogic.Services
 {
-  public class FeedingScheduler //: IScheduler
+  public class Scheduler : IScheduler
   {
-    private static FeedingScheduler instance;
+    private static Scheduler instance;
 
-    public static FeedingScheduler Instance
+    public static Scheduler Instance
     {
       get
       {
         if (instance == null)
         {
-          instance = new FeedingScheduler();
+          instance = new Scheduler();
         }
 
         return instance;
       }
     }
 
-    private FeedingScheduler()
+    private Scheduler()
     {
     }
 
-    public void AssignJobs(IEnumerable<IKeeper> keepers, IEnumerable<IAnimal> animals)
+    public void AssignGroomingJobs(IEnumerable<IKeeper> keepers, IEnumerable<IAnimal> animals)
+    {
+      foreach (var keeper in keepers)
+      {
+        keeper.GetResponsibleAnimals<ICanBeGroomed>().AsParallel().ForAll(keeper.GroomAnimal);
+      }
+    }
+
+    public void AssignFeedingJobs(IEnumerable<IKeeper> keepers, IEnumerable<IAnimal> animals)
     {
       Parallel.ForEach(keepers, keeper =>
       {
