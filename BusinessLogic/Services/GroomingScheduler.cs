@@ -6,7 +6,7 @@ using Zoo.BusinessLogic.Models.Animals;
 
 namespace Zoo.BusinessLogic.Services
 {
-  public class GroomingScheduler //: IScheduler
+  public class GroomingScheduler : IScheduler
   {
     private static GroomingScheduler instance;
 

@@ -7,7 +7,7 @@ using Zoo.BusinessLogic.Models.Animals;
 
 namespace Zoo.BusinessLogic.Services
 {
-  public class FeedingScheduler //: IScheduler
+  public class FeedingScheduler : IScheduler
   {
     private static FeedingScheduler instance;
 

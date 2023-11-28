@@ -37,13 +37,14 @@ namespace Zoo.ConsoleApp
             var babyRabbit = new Rabbit(DateTime.Today);
             smallAnimalKeeper.StartLookingAfter(babyRabbit);
 
-            IScheduler scheduler = Scheduler.Instance;
+            IScheduler feedingScheduler = FeedingScheduler.Instance;
+            IScheduler groomingScheduler = GroomingScheduler.Instance;
             
             var timer = new ZooTimer();
             new Thread(timer.Run).Start();
 
-            timer.Tick += () => scheduler.AssignFeedingJobs(keepers, animals);
-            timer.Tick += () => scheduler.AssignGroomingJobs(keepers, animals);
+            timer.Tick += () => feedingScheduler.AssignJobs(keepers, animals);
+            timer.Tick += () => groomingScheduler.AssignJobs(keepers, animals);
             timer.Tick += () => animals.ForEach(Console.WriteLine);
         }
     }
